@@ -7,10 +7,11 @@
   overflow: hidden;
   transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
   cursor: pointer;
+  box-shadow: var(--shadow);
 
   &:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow);
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-warm);
     border-color: rgba(249, 115, 22, .4);
   }
 }
@@ -35,7 +36,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--border);
+  color: var(--border-input);
 }
 
 .card-badges {
@@ -44,14 +45,16 @@
   display: flex; gap: .4rem;
 
   .badge {
-    background: rgba(15, 23, 42, .85);
+    background: rgba(255, 255, 255, .92);
     backdrop-filter: blur(4px);
-    color: var(--text);
+    color: var(--text-muted);
+    border: 1px solid rgba(255,255,255,.6);
     font-size: .7rem;
   }
   .badge-year {
     background: var(--accent);
     color: #fff;
+    border-color: transparent;
   }
 }
 
@@ -104,6 +107,6 @@
   font-size: .8rem;
   font-weight: 600;
   color: var(--text-muted);
-  transition: color var(--transition), gap var(--transition);
+  transition: color var(--transition);
   .card:hover & { color: var(--accent); }
 }

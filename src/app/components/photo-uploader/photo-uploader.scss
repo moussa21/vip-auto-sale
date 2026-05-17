@@ -11,15 +11,16 @@
   align-items: center;
   gap: .5rem;
   padding: 2.5rem 1.5rem;
-  border: 2px dashed var(--border);
+  border: 2px dashed var(--border-input);
   border-radius: var(--radius);
   cursor: pointer;
   transition: border-color var(--transition), background var(--transition);
   text-align: center;
+  background: var(--bg-elevated);
 
   .uploader:not(.drag-over) &:hover {
     border-color: var(--accent);
-    background: rgba(249, 115, 22, .04);
+    background: rgba(249, 115, 22, .05);
   }
 }
 
@@ -31,11 +32,12 @@
 .drop-icon {
   width: 56px; height: 56px;
   border-radius: 12px;
-  background: var(--bg-elevated);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-muted);
+  color: var(--accent);
   margin-bottom: .25rem;
 }
 
@@ -54,7 +56,8 @@
 .drop-count {
   font-size: .75rem;
   color: var(--text-muted);
-  background: var(--bg-elevated);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
   padding: .2rem .6rem;
   border-radius: 10px;
   margin-top: .25rem;
@@ -63,9 +66,9 @@
 /* Error */
 .upload-error {
   font-size: .82rem;
-  color: #f87171;
-  background: rgba(248, 113, 113, .1);
-  border: 1px solid rgba(248, 113, 113, .25);
+  color: #dc2626;
+  background: rgba(239, 68, 68, .08);
+  border: 1px solid rgba(239, 68, 68, .25);
   padding: .5rem .85rem;
   border-radius: 8px;
 }
@@ -84,6 +87,7 @@
   overflow: hidden;
   border: 2px solid var(--border);
   cursor: default;
+  box-shadow: 0 2px 8px rgba(249,115,22,.07);
 
   img {
     width: 100%; height: 100%;
@@ -93,13 +97,16 @@
 
   &:hover img { transform: scale(1.05); }
 
-  &.cover { border-color: var(--accent); }
+  &.cover {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(249,115,22,.2);
+  }
 }
 
 .preview-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,.65) 0%, transparent 50%);
+  background: linear-gradient(to top, rgba(0,0,0,.6) 0%, transparent 50%);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -134,19 +141,19 @@
 .action-btn {
   width: 28px; height: 28px;
   border-radius: 6px;
-  background: rgba(255,255,255,.15);
+  background: rgba(255,255,255,.18);
   backdrop-filter: blur(4px);
   color: #fff;
   font-size: .75rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(255,255,255,.2);
+  border: 1px solid rgba(255,255,255,.25);
   transition: background var(--transition);
 
-  &:hover:not(:disabled) { background: rgba(255,255,255,.3); }
+  &:hover:not(:disabled) { background: rgba(255,255,255,.32); }
   &:disabled { opacity: .35; cursor: not-allowed; }
-  &.danger:hover:not(:disabled) { background: rgba(239, 68, 68, .7); }
+  &.danger:hover:not(:disabled) { background: rgba(239, 68, 68, .75); }
 }
 
 /* Add more slot */
@@ -157,17 +164,19 @@
   justify-content: center;
   gap: .3rem;
   aspect-ratio: 4/3;
-  border: 2px dashed var(--border);
+  border: 2px dashed var(--border-input);
   border-radius: 10px;
   cursor: pointer;
   color: var(--text-muted);
   font-size: .75rem;
   font-weight: 600;
-  transition: border-color var(--transition), color var(--transition);
+  background: var(--bg-elevated);
+  transition: border-color var(--transition), color var(--transition), background var(--transition);
 
   &:hover {
     border-color: var(--accent);
     color: var(--accent);
+    background: rgba(249,115,22,.04);
   }
 }
 

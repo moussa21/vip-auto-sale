@@ -22,8 +22,9 @@
 .gallery-main {
   border-radius: var(--radius);
   overflow: hidden;
-  background: var(--bg-surface);
+  background: var(--bg-elevated);
   aspect-ratio: 16/10;
+  box-shadow: 0 4px 20px rgba(249,115,22,.1);
 }
 
 .main-photo {
@@ -38,7 +39,7 @@
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  color: var(--border);
+  color: var(--border-input);
   p { font-size: .9rem; color: var(--text-muted); }
 }
 
@@ -57,15 +58,15 @@
   border: 2px solid transparent;
   border-radius: 8px;
   overflow: hidden;
-  background: var(--bg-surface);
+  background: var(--bg-elevated);
   cursor: pointer;
-  transition: border-color var(--transition);
+  transition: border-color var(--transition), box-shadow var(--transition);
   padding: 0;
 
   img { width: 100%; height: 100%; object-fit: cover; }
 
-  &.active { border-color: var(--accent); }
-  &:hover:not(.active) { border-color: var(--border); }
+  &.active { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(249,115,22,.2); }
+  &:hover:not(.active) { border-color: var(--border-input); }
 }
 
 /* Info col */
@@ -85,6 +86,7 @@
   font-size: clamp(1.5rem, 3vw, 2rem);
   font-weight: 800;
   line-height: 1.2;
+  color: var(--text);
 }
 
 .price {
@@ -104,18 +106,26 @@
   display: flex;
   flex-direction: column;
   gap: .25rem;
-  background: var(--bg-surface);
+  background: var(--bg-elevated);
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: .9rem 1rem;
+  transition: border-color var(--transition), box-shadow var(--transition);
   svg { color: var(--accent); }
-  .spec-label { font-size: .72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: .05em; }
+  .spec-label {
+    font-size: .72rem;
+    color: var(--label);
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    font-weight: 700;
+  }
   .spec-value { font-size: .95rem; font-weight: 600; color: var(--text); }
+  &:hover { border-color: var(--border-input); box-shadow: 0 2px 8px rgba(249,115,22,.08); }
 }
 
 /* Description */
 .description {
-  h3 { font-size: .95rem; font-weight: 700; margin-bottom: .6rem; }
+  h3 { font-size: .95rem; font-weight: 700; margin-bottom: .6rem; color: var(--label); }
   p { font-size: .9rem; color: var(--text-muted); line-height: 1.75; }
 }
 
@@ -128,6 +138,7 @@
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+  box-shadow: 0 4px 16px rgba(249,115,22,.08);
 }
 
 .seller-header {
@@ -147,10 +158,11 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(249,115,22,.3);
 }
 
-.seller-label { font-size: .72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: .05em; }
-.seller-name  { font-size: 1.05rem; font-weight: 700; }
+.seller-label { font-size: .72rem; color: var(--label); text-transform: uppercase; letter-spacing: .05em; font-weight: 700; }
+.seller-name  { font-size: 1.05rem; font-weight: 700; color: var(--text); }
 .seller-city  {
   display: flex; align-items: center; gap: .3rem;
   font-size: .8rem; color: var(--text-muted); margin-top: .15rem;

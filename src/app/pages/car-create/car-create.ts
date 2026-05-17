@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
-import { HttpEventType } from '@angular/common/http';
+import { HttpClient, HttpEventType } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
 import { CarService, CarCreateRequest } from '../../services/car.service';
 import { PhotoUploader } from '../../components/photo-uploader/photo-uploader';
@@ -15,10 +15,12 @@ import { PhotoUploader } from '../../components/photo-uploader/photo-uploader';
 })
 export class CarCreate implements OnInit {
   photos: File[] = [];
-  uploading = false;
-  progress  = 0;
-  error     = '';
-  success   = false;
+  uploading   = false;
+  progress    = 0;
+  error       = '';
+  success     = false;
+  geoLoading  = false;
+  geoDetected = false;
 
   form: CarCreateRequest = {
     marque: '', modele: '', ville: '', prix: 0,
@@ -34,7 +36,8 @@ export class CarCreate implements OnInit {
   constructor(
     private auth: AuthService,
     private carService: CarService,
-    private router: Router
+    private router: Router,
+    private http: HttpClient
   ) {}
 
   ngOnInit() {
@@ -43,6 +46,35 @@ export class CarCreate implements OnInit {
     if (user) {
       this.form.vendeurNom = `${user.prenom} ${user.nom}`;
     }
+    this.detectCity();
+  }
+
+  /** Remplit le champ ville via la géolocalisation du navigateur + reverse geocoding Nominatim */
+  private detectCity() {
+    if (!('geolocation' in navigator)) return;
+    this.geoLoading = true;
+    navigator.geolocation.getCurrentPosition(
+      ({ coords }) => {
+        const { latitude: lat, longitude: lon } = coords;
+        this.http.get<any>(
+          `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`,
+          { headers: { 'Accept-Language': 'fr' } }
+        ).subscribe({
+          next: (data) => {
+            const a = data?.address ?? {};
+            const city = a.city ?? a.town ?? a.municipality ?? a.village ?? a.county ?? '';
+            if (city) {
+              if (!this.form.ville)       this.form.ville       = city;
+              if (!this.form.vendeurVille) this.form.vendeurVille = city;
+              this.geoDetected = true;
+            }
+            this.geoLoading = false;
+          },
+          error: () => { this.geoLoading = false; }
+        });
+      },
+      () => { this.geoLoading = false; }
+    );
   }
 
   onPhotosChange(files: File[]) { this.photos = files; }

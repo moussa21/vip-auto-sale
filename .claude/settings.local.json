@@ -19,7 +19,11 @@
       "Bash(curl -s http://localhost:8081/api/cars)",
       "Bash(Get-ChildItem -Path \"src\" -Recurse -Directory)",
       "Bash(Format-Table FullName)",
-      "Bash(curl *)"
+      "Bash(curl *)",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\mouss\\\\projects\\\\vip-auto-backend\\\\src\\\\main\\\\resources\" -Recurse | Where-Object { -not $_.PSIsContainer } | Select-Object FullName)",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\mouss\\\\projects\\\\vip-auto-backend\\\\target\\\\classes\" -Recurse | Where-Object { $_.Name -match \"application\" } | Select-Object FullName)",
+      "PowerShell(cmd /c \"dir /s /b C:\\\\Users\\\\mouss\\\\projects\\\\vip-auto-backend\\\\src\\\\main\\\\resources\" 2>&1 | Select-Object -First 30)",
+      "PowerShell(cmd /c \"dir /b C:\\\\Users\\\\mouss\\\\projects\\\\vip-auto-backend\")"
     ]
   }
 }

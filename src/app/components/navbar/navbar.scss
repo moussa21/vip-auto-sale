@@ -5,13 +5,21 @@
   background: transparent;
   transition: background var(--transition), box-shadow var(--transition);
 
+  /* État scrollé : fond clair warm */
   &.scrolled {
-    background: rgba(15, 23, 42, .95);
+    background: rgba(255, 251, 245, .96);
     backdrop-filter: blur(12px);
-    box-shadow: 0 1px 0 var(--border);
+    box-shadow: 0 2px 16px rgba(249, 115, 22, .13);
+
+    .nav-links a { color: var(--text-muted); &:hover, &.active { color: var(--accent); } }
+    .brand { color: var(--text); }
+    .menu-toggle span,
+    .menu-toggle span::before,
+    .menu-toggle span::after { background: var(--text); }
   }
 }
 
+/* Par défaut (sur le hero sombre) : texte blanc */
 .nav-inner {
   display: flex;
   align-items: center;
@@ -26,6 +34,7 @@
   font-size: 1.3rem;
   font-weight: 800;
   letter-spacing: -.02em;
+  color: #fff;
   .brand-icon { color: var(--accent); font-size: 1rem; }
   .accent { color: var(--accent); }
 }
@@ -38,9 +47,9 @@
   a {
     font-size: .9rem;
     font-weight: 500;
-    color: var(--text-muted);
+    color: rgba(255,255,255,.8);
     transition: color var(--transition);
-    &:hover, &.active { color: var(--text); }
+    &:hover, &.active { color: #fff; }
   }
 }
 
@@ -59,7 +68,7 @@
 
   span {
     width: 22px; height: 2px;
-    background: var(--text);
+    background: #fff;
     border-radius: 2px;
     position: relative;
     transition: var(--transition);
@@ -67,7 +76,7 @@
       content: '';
       position: absolute;
       width: 22px; height: 2px;
-      background: var(--text);
+      background: #fff;
       border-radius: 2px;
       transition: var(--transition);
     }
@@ -84,6 +93,7 @@
   flex-direction: column;
   background: var(--bg-surface);
   border-top: 1px solid var(--border);
+  box-shadow: 0 8px 24px rgba(249,115,22,.08);
   padding: 1rem 1.25rem;
   gap: .75rem;
   a {

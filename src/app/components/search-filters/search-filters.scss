@@ -2,17 +2,19 @@
   display: flex;
   align-items: center;
   gap: 0;
-  background: var(--bg-surface);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: .6rem;
+  background: rgba(255, 255, 255, .95);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(237, 233, 227, .9);
+  border-radius: 16px;
+  padding: .65rem;
   flex-wrap: wrap;
+  box-shadow: 0 12px 40px rgba(0,0,0,.14), 0 2px 8px rgba(249,115,22,.08);
 }
 
 .filter-group {
   display: flex;
   flex-direction: column;
-  gap: .25rem;
+  gap: .2rem;
   flex: 1;
   min-width: 140px;
   padding: .4rem .75rem;
@@ -22,10 +24,10 @@
     align-items: center;
     gap: .35rem;
     font-size: .72rem;
-    font-weight: 600;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: .06em;
-    color: var(--text-muted);
+    letter-spacing: .07em;
+    color: var(--label);  /* ambre doré tropical */
     pointer-events: none;
   }
 
@@ -34,9 +36,11 @@
     border: none;
     outline: none;
     font-size: .95rem;
+    font-weight: 500;
     color: var(--text);
     width: 100%;
-    &::placeholder { color: var(--border); }
+    cursor: pointer;
+    &::placeholder { color: var(--border-input); }
   }
 }
 

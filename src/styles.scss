@@ -3,18 +3,25 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg-base:      #0f172a;
-  --bg-surface:   #1e293b;
-  --bg-elevated:  #273549;
-  --accent:       #f97316;
+  --bg-base:      #f7f5f5;   /* gris très clair – neutre et reposant */
+  --bg-surface:   #ffffff;   /* blanc pur – cartes et surfaces */
+  --bg-elevated:  #fff5ee;   /* pêche très doux – éléments surélevés */
+  --accent:       #f97316;   /* orange chaleureux */
   --accent-hover: #ea6e0a;
-  --blue:         #3b82f6;
-  --text:         #f1f5f9;
-  --text-muted:   #94a3b8;
-  --border:       #334155;
+  --accent-light: #fff4eb;   /* fond accent ultra léger */
+  --blue:         #0ea5e9;   /* ciel tropical */
+  --green:        #16a34a;
+  --text:         #1c1917;   /* brun foncé – lisibilité maximale */
+  --text-muted:   #78716c;   /* gris chaud – textes secondaires */
+  --label:        #92400e;   /* brun-ambre – labels de formulaires */
+  --border:       #ede9e3;   /* séparateur structural très doux */
+  --border-input: #d9cfc3;   /* contour champ légèrement marqué */
   --radius:       12px;
-  --shadow:       0 4px 24px rgba(0,0,0,.45);
-  --transition:   .22s ease;
+  --radius-sm:    8px;
+  --shadow:       0 2px 16px rgba(0,0,0,.07);
+  --shadow-md:    0 6px 28px rgba(0,0,0,.10);
+  --shadow-warm:  0 6px 24px rgba(249,115,22,.18);
+  --transition:   .2s ease;
 }
 
 html { scroll-behavior: smooth; }
@@ -30,11 +37,17 @@ body {
 a { color: inherit; text-decoration: none; }
 button { cursor: pointer; font-family: inherit; border: none; }
 img { max-width: 100%; display: block; }
-input, select { font-family: inherit; }
+
+/* Curseur "main" sur tous les champs de saisie */
+input, select, textarea {
+  font-family: inherit;
+  cursor: pointer;
+}
 
 ::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--bg-base); }
-::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-track { background: var(--bg-elevated); }
+::-webkit-scrollbar-thumb { background: var(--border-input); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
 .container {
   width: 100%;
@@ -47,34 +60,38 @@ input, select { font-family: inherit; }
   display: inline-flex;
   align-items: center;
   gap: .5rem;
-  padding: .65rem 1.4rem;
-  border-radius: 8px;
+  padding: .65rem 1.5rem;
+  border-radius: var(--radius-sm);
   font-weight: 600;
   font-size: .9rem;
-  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+  letter-spacing: .01em;
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition), color var(--transition);
 
   &-primary {
     background: var(--accent);
     color: #fff;
-    &:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(249,115,22,.35); }
+    box-shadow: 0 2px 8px rgba(249,115,22,.25);
+    &:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: var(--shadow-warm); }
+    &:active { transform: translateY(0); }
   }
   &-outline {
-    background: transparent;
-    border: 1.5px solid var(--border);
-    color: var(--text);
-    &:hover { border-color: var(--accent); color: var(--accent); }
+    background: var(--bg-surface);
+    border: 1.5px solid var(--border-input);
+    color: var(--text-muted);
+    &:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
   }
   &-ghost {
     background: transparent;
     color: var(--text-muted);
-    &:hover { color: var(--text); }
+    padding: .55rem 1rem;
+    &:hover { color: var(--text); background: var(--bg-surface); }
   }
 }
 
 .skeleton {
-  background: linear-gradient(90deg, var(--bg-surface) 25%, var(--bg-elevated) 50%, var(--bg-surface) 75%);
+  background: linear-gradient(90deg, #eee9e3 25%, #f5ede3 50%, #eee9e3 75%);
   background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
+  animation: shimmer 1.6s infinite;
   border-radius: var(--radius);
 }
 @keyframes shimmer {
@@ -92,6 +109,7 @@ input, select { font-family: inherit; }
   font-weight: 600;
   background: var(--bg-elevated);
   color: var(--text-muted);
+  border: 1px solid var(--border);
 }
 
 .section-title {

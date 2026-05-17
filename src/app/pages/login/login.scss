@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
   padding: 2rem 1.25rem;
-  background: radial-gradient(ellipse at 50% 0%, rgba(249,115,22,.08) 0%, transparent 70%);
+  background: radial-gradient(ellipse at 50% 0%, rgba(249,115,22,.10) 0%, transparent 65%);
 }
 
 .login-card {
@@ -17,6 +17,7 @@
   display: flex;
   flex-direction: column;
   gap: 1.75rem;
+  box-shadow: var(--shadow-md);
 }
 
 .login-header {
@@ -30,7 +31,7 @@
     .accent { color: var(--accent); }
     margin-bottom: .5rem;
   }
-  h1 { font-size: 1.5rem; font-weight: 700; }
+  h1 { font-size: 1.5rem; font-weight: 700; color: var(--text); }
   p  { font-size: .9rem; color: var(--text-muted); }
 }
 
@@ -39,32 +40,40 @@
 .field {
   display: flex;
   flex-direction: column;
-  gap: .4rem;
+  gap: .35rem;
+
   label {
-    font-size: .82rem;
-    font-weight: 600;
-    color: var(--text-muted);
+    font-size: .78rem;
+    font-weight: 700;
+    color: var(--label);           /* ambre doré : visuellement distinct du champ */
     text-transform: uppercase;
-    letter-spacing: .05em;
+    letter-spacing: .06em;
   }
+
   input {
-    background: var(--bg-elevated);
-    border: 1.5px solid var(--border);
-    border-radius: 9px;
-    padding: .7rem .9rem;
+    background: var(--bg-surface); /* fond blanc : différent du label ambré */
+    border: 1.5px solid var(--border-input);
+    border-radius: var(--radius-sm);
+    padding: .75rem 1rem;
     color: var(--text);
     font-size: .95rem;
     outline: none;
-    transition: border-color var(--transition);
-    &:focus { border-color: var(--accent); }
-    &::placeholder { color: var(--border); }
+    transition: border-color var(--transition), box-shadow var(--transition);
+    cursor: pointer;
+
+    &:hover { border-color: #c4a882; box-shadow: 0 1px 4px rgba(0,0,0,.05); }
+    &:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(249,115,22,.14);
+    }
+    &::placeholder { color: #bfb5a8; }
   }
 }
 
 .form-error {
-  background: rgba(248, 113, 113, .1);
-  border: 1px solid rgba(248, 113, 113, .3);
-  color: #f87171;
+  background: rgba(239, 68, 68, .08);
+  border: 1px solid rgba(239, 68, 68, .28);
+  color: #dc2626;
   font-size: .85rem;
   padding: .6rem .9rem;
   border-radius: 8px;
