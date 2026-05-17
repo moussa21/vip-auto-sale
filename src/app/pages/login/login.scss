@@ -1,0 +1,90 @@
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.25rem;
+  background: radial-gradient(ellipse at 50% 0%, rgba(249,115,22,.08) 0%, transparent 70%);
+}
+
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.login-header {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  .brand {
+    font-size: 1.2rem;
+    font-weight: 800;
+    span:first-child { color: var(--accent); }
+    .accent { color: var(--accent); }
+    margin-bottom: .5rem;
+  }
+  h1 { font-size: 1.5rem; font-weight: 700; }
+  p  { font-size: .9rem; color: var(--text-muted); }
+}
+
+.login-form { display: flex; flex-direction: column; gap: 1.1rem; }
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+  label {
+    font-size: .82rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: .05em;
+  }
+  input {
+    background: var(--bg-elevated);
+    border: 1.5px solid var(--border);
+    border-radius: 9px;
+    padding: .7rem .9rem;
+    color: var(--text);
+    font-size: .95rem;
+    outline: none;
+    transition: border-color var(--transition);
+    &:focus { border-color: var(--accent); }
+    &::placeholder { color: var(--border); }
+  }
+}
+
+.form-error {
+  background: rgba(248, 113, 113, .1);
+  border: 1px solid rgba(248, 113, 113, .3);
+  color: #f87171;
+  font-size: .85rem;
+  padding: .6rem .9rem;
+  border-radius: 8px;
+}
+
+.submit-btn {
+  justify-content: center;
+  padding: .75rem;
+  font-size: .95rem;
+  margin-top: .25rem;
+  &:disabled { opacity: .6; cursor: not-allowed; }
+}
+
+.spin { animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.back-link {
+  text-align: center;
+  font-size: .85rem;
+  color: var(--text-muted);
+  transition: color var(--transition);
+  &:hover { color: var(--accent); }
+}

@@ -1,0 +1,46 @@
+<a [routerLink]="['/cars', car.id]" class="card">
+  <div class="card-img">
+    <img
+      *ngIf="car.photoCouverture; else placeholder"
+      [src]="car.photoCouverture"
+      [alt]="car.marque + ' ' + car.modele"
+      loading="lazy"
+    />
+    <ng-template #placeholder>
+      <div class="img-placeholder">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+          <rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h5l2 5v4h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+        </svg>
+      </div>
+    </ng-template>
+
+    <div class="card-badges">
+      <span class="badge badge-year">{{ car.annee }}</span>
+      <span *ngIf="car.carburant" class="badge">{{ car.carburant }}</span>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <h3 class="car-name">{{ car.marque }} {{ car.modele }}</h3>
+
+    <div class="car-specs">
+      <span class="spec">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8zm0-14v6l4 2"/></svg>
+        {{ formattedKm }}
+      </span>
+      <span class="spec">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        {{ car.ville }}
+      </span>
+      <span *ngIf="car.transmission" class="spec">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M3 12h3m12 0h3M12 3v3m0 12v3"/></svg>
+        {{ car.transmission }}
+      </span>
+    </div>
+
+    <div class="card-footer">
+      <span class="price">{{ car.prix | currency:'GNF':'symbol':'1.0-0':'fr-FR' }}</span>
+      <span class="cta">Voir →</span>
+    </div>
+  </div>
+</a>

@@ -1,0 +1,135 @@
+<!-- Loading -->
+<div *ngIf="loading" class="detail-loading container">
+  <div class="skeleton skeleton-detail-img"></div>
+  <div class="detail-info">
+    <div class="skeleton skeleton-line long" style="height:28px"></div>
+    <div class="skeleton skeleton-line medium" style="height:20px"></div>
+    <div class="skeleton skeleton-line short" style="height:16px"></div>
+  </div>
+</div>
+
+<!-- Error -->
+<div *ngIf="error && !loading" class="state-msg">
+  <p>Véhicule introuvable ou une erreur s'est produite.</p>
+  <a routerLink="/" class="btn btn-primary">Retour à l'accueil</a>
+</div>
+
+<!-- Content -->
+<div *ngIf="!loading && !error && car" class="detail-page">
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb container">
+    <a routerLink="/">Accueil</a>
+    <span>›</span>
+    <span>{{ car.marque }} {{ car.modele }}</span>
+  </div>
+
+  <div class="container detail-layout">
+    <!-- LEFT: Gallery -->
+    <div class="gallery-col">
+      <div class="gallery-main">
+        <img *ngIf="currentPhoto; else noPhoto"
+             [src]="currentPhoto"
+             [alt]="car.marque + ' ' + car.modele"
+             class="main-photo" />
+        <ng-template #noPhoto>
+          <div class="no-photo">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+              <rect x="1" y="3" width="15" height="13" rx="2"/>
+              <path d="M16 8h5l2 5v4h-7V8z"/>
+              <circle cx="5.5" cy="18.5" r="2.5"/>
+              <circle cx="18.5" cy="18.5" r="2.5"/>
+            </svg>
+            <p>Aucune photo disponible</p>
+          </div>
+        </ng-template>
+      </div>
+
+      <div *ngIf="car.photos.length > 1" class="gallery-thumbs">
+        <button
+          *ngFor="let photo of car.photos; let i = index"
+          class="thumb"
+          [class.active]="i === activePhoto"
+          (click)="selectPhoto(i)"
+        >
+          <img [src]="photo" [alt]="'Photo ' + (i+1)" />
+        </button>
+      </div>
+    </div>
+
+    <!-- RIGHT: Info + Seller -->
+    <div class="info-col">
+
+      <!-- Title & Price -->
+      <div class="car-header">
+        <div class="car-meta">
+          <span class="badge">{{ car.annee }}</span>
+          <span *ngIf="car.carburant"  class="badge">{{ car.carburant }}</span>
+          <span *ngIf="car.transmission" class="badge">{{ car.transmission }}</span>
+        </div>
+        <h1>{{ car.marque }} {{ car.modele }}</h1>
+        <div class="price">{{ car.prix | currency:'GNF':'symbol':'1.0-0':'fr-FR' }}</div>
+      </div>
+
+      <!-- Specs grid -->
+      <div class="specs-grid">
+        <div class="spec-item">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8zm0-14v6l4 2"/></svg>
+          <span class="spec-label">Kilométrage</span>
+          <span class="spec-value">{{ formattedKm }}</span>
+        </div>
+        <div class="spec-item">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          <span class="spec-label">Ville</span>
+          <span class="spec-value">{{ car.ville }}</span>
+        </div>
+        <div class="spec-item" *ngIf="car.carburant">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 22V7l9-4 9 4v15"/><path d="M9 22V12h6v10"/></svg>
+          <span class="spec-label">Carburant</span>
+          <span class="spec-value">{{ car.carburant }}</span>
+        </div>
+        <div class="spec-item" *ngIf="car.transmission">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M3 12h3m12 0h3M12 3v3m0 12v3"/></svg>
+          <span class="spec-label">Transmission</span>
+          <span class="spec-value">{{ car.transmission }}</span>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div *ngIf="car.description" class="description">
+        <h3>Description</h3>
+        <p>{{ car.description }}</p>
+      </div>
+
+      <!-- Seller card -->
+      <div class="seller-card">
+        <div class="seller-header">
+          <div class="seller-avatar">
+            {{ car.vendeur.nom.charAt(0).toUpperCase() }}
+          </div>
+          <div>
+            <p class="seller-label">Vendeur</p>
+            <p class="seller-name">{{ car.vendeur.nom }}</p>
+            <p *ngIf="car.vendeur.ville" class="seller-city">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+              {{ car.vendeur.ville }}
+            </p>
+          </div>
+        </div>
+
+        <div class="seller-actions">
+          <a [href]="'tel:' + car.vendeur.telephone" class="btn btn-primary seller-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.17h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            {{ car.vendeur.telephone }}
+          </a>
+          <a *ngIf="car.vendeur.email" [href]="'mailto:' + car.vendeur.email" class="btn btn-outline seller-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Email
+          </a>
+        </div>
+      </div>
+
+      <a routerLink="/" class="btn btn-ghost back-btn">← Retour aux annonces</a>
+    </div>
+  </div>
+</div>

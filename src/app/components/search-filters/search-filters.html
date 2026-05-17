@@ -1,0 +1,37 @@
+<form class="filters" (ngSubmit)="search()">
+  <div class="filter-group">
+    <label for="f-city">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      Ville
+    </label>
+    <input id="f-city" type="text" [(ngModel)]="city" name="city" placeholder="Ex: Conakry" />
+  </div>
+
+  <div class="filter-divider"></div>
+
+  <div class="filter-group">
+    <label for="f-brand">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h5l2 5v4h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+      Marque
+    </label>
+    <input id="f-brand" type="text" [(ngModel)]="brand" name="brand" placeholder="Ex: Toyota" />
+  </div>
+
+  <div class="filter-divider"></div>
+
+  <div class="filter-group">
+    <label for="f-model">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      Modèle
+    </label>
+    <input id="f-model" type="text" [(ngModel)]="model" name="model" placeholder="Ex: Corolla" />
+  </div>
+
+  <div class="filter-actions">
+    <button type="submit" class="btn btn-primary">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      Rechercher
+    </button>
+    <button type="button" class="btn btn-ghost" (click)="reset()">Réinitialiser</button>
+  </div>
+</form>

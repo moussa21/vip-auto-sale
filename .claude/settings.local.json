@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\mouss\\\\projects\\\\vip-auto-backend\" -Recurse -Depth 3)",
+      "Bash(Select-Object FullName, PSIsContainer)",
+      "Bash(Format-List)",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\mouss\\\\projects\\\\vip-auto-backend\\\\src\\\\main\\\\resources\" -Recurse -Force | ForEach-Object { $_.FullName })",
+      "PowerShell(Set-Location \"C:\\\\Users\\\\mouss\\\\projects\\\\vip-auto-sale\"; Start-Process -NoNewWindow -FilePath \"npx\" -ArgumentList \"ng\", \"serve\", \"--open\" 2>&1 &)",
+      "PowerShell(Set-Location \"C:\\\\Users\\\\mouss\\\\projects\\\\vip-auto-sale\"; npx ng serve --port 4200 2>&1 &)",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\mouss\\\\projects\\\\vip-auto-frontend\" -Force)",
+      "Bash(Select-Object Name, PSIsContainer)",
+      "PowerShell(tree *)",
+      "PowerShell(ls -Recurse \"C:\\\\Users\\\\mouss\\\\projects\\\\vip-auto-frontend\\\\src\" -Depth 2 | Where-Object {$_.PSIsContainer} | Select-Object -ExpandProperty FullName)",
+      "Bash(npx ng *)",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\mouss\\\\projects\\\\vip-auto-backend\" -Recurse -Filter \"*SecurityConfig*\" -ErrorAction SilentlyContinue)",
+      "Bash(Select-Object -First 20)",
+      "Bash(Find \"C:\\\\Users\\\\mouss\\\\projects\\\\vip-auto-backend\\\\src\\\\main\\\\kotlin\" -type f -name \"*.kt\")",
+      "Bash(npm install *)",
+      "Bash(curl -s http://localhost:8081/api/cars)",
+      "Bash(Get-ChildItem -Path \"src\" -Recurse -Directory)",
+      "Bash(Format-Table FullName)",
+      "Bash(curl *)"
+    ]
+  }
+}

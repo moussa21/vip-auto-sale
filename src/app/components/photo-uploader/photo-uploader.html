@@ -1,0 +1,45 @@
+<div class="uploader" [class.drag-over]="dragOver">
+
+  <!-- Drop zone (visible when no photos or can add more) -->
+  <label *ngIf="canAddMore" class="drop-zone" for="file-input">
+    <input id="file-input" type="file" accept="image/*" multiple (change)="onFileInput($event)" hidden />
+    <div class="drop-icon">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="17 8 12 3 7 8"/>
+        <line x1="12" y1="3" x2="12" y2="15"/>
+      </svg>
+    </div>
+    <p class="drop-text">Glissez vos photos ici</p>
+    <p class="drop-sub">ou <span class="browse-link">parcourir</span> · JPG, PNG, WebP · max 10 Mo</p>
+    <p class="drop-count">{{ previews().length }} / {{ maxPhotos }} photo{{ previews().length !== 1 ? 's' : '' }}</p>
+  </label>
+
+  <!-- Error -->
+  <p *ngIf="error" class="upload-error">⚠ {{ error }}</p>
+
+  <!-- Previews grid -->
+  <div *ngIf="previews().length > 0" class="previews-grid">
+    <div *ngFor="let p of previews(); let i = index" class="preview-item" [class.cover]="i === 0">
+      <img [src]="p.url" [alt]="'Photo ' + (i + 1)" />
+
+      <div class="preview-overlay">
+        <span *ngIf="i === 0" class="cover-badge">Couverture</span>
+        <div class="preview-actions">
+          <button type="button" class="action-btn" (click)="moveLeft(i)" [disabled]="i === 0" title="Déplacer à gauche">←</button>
+          <button type="button" class="action-btn" (click)="moveRight(i)" [disabled]="i === previews().length - 1" title="Déplacer à droite">→</button>
+          <button type="button" class="action-btn danger" (click)="remove(i)" title="Supprimer">✕</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Extra slot -->
+    <label *ngIf="canAddMore" class="add-more-slot" for="file-input-extra">
+      <input id="file-input-extra" type="file" accept="image/*" multiple (change)="onFileInput($event)" hidden />
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+      </svg>
+      <span>Ajouter</span>
+    </label>
+  </div>
+</div>
