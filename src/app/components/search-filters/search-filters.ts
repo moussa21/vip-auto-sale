@@ -12,26 +12,23 @@ export class SearchFilters implements OnInit {
   @Input() initialFilters: CarFilters = {};
   @Output() filtersChange = new EventEmitter<CarFilters>();
 
-  city  = '';
-  brand = '';
-  model = '';
+  ville  = '';
+  search = '';
 
   ngOnInit() {
-    this.city  = this.initialFilters.city  ?? '';
-    this.brand = this.initialFilters.brand ?? '';
-    this.model = this.initialFilters.model ?? '';
+    this.ville  = this.initialFilters.ville  ?? '';
+    this.search = this.initialFilters.search ?? '';
   }
 
-  search() {
+  doSearch() {
     this.filtersChange.emit({
-      city:  this.city.trim()  || undefined,
-      brand: this.brand.trim() || undefined,
-      model: this.model.trim() || undefined
+      ville:  this.ville.trim()  || undefined,
+      search: this.search.trim() || undefined
     });
   }
 
   reset() {
-    this.city = this.brand = this.model = '';
+    this.ville = this.search = '';
     this.filtersChange.emit({});
   }
 }

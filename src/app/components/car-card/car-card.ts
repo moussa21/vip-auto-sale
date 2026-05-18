@@ -13,6 +13,8 @@ export class CarCard {
   @Input({ required: true }) car!: CarSummary;
 
   get formattedKm(): string {
-    return this.car.kilometrage.toLocaleString('fr-FR') + ' km';
+    return this.car.kilometrage != null
+      ? this.car.kilometrage.toLocaleString('fr-FR') + ' km'
+      : '—';
   }
 }

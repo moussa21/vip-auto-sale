@@ -33,6 +33,8 @@ export class CarDetail implements OnInit {
   }
 
   get formattedKm(): string {
-    return this.car ? this.car.kilometrage.toLocaleString('fr-FR') + ' km' : '';
+    return this.car?.kilometrage != null
+      ? this.car.kilometrage.toLocaleString('fr-FR') + ' km'
+      : '—';
   }
 }

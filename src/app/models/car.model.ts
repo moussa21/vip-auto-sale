@@ -1,42 +1,45 @@
+export interface MagasinVendeurInfo {
+  nom: string;
+  telephone: string | null;
+  ville: string | null;
+  pays: string | null;
+}
+
 export interface CarSummary {
   id: number;
-  marque: string;
-  modele: string;
-  ville: string;
+  typeProduit: string;
+  designation: string;
+  marque: string | null;
+  modele: string | null;
+  annee: number | null;
   prix: number;
-  annee: number;
-  kilometrage: number;
+  kilometrage: number | null;
   carburant: string | null;
   transmission: string | null;
   photoCouverture: string | null;
+  villeVendeur: string | null;
   creeLe: string;
-}
-
-export interface SellerInfo {
-  nom: string;
-  telephone: string;
-  email: string | null;
-  ville: string | null;
 }
 
 export interface CarDetail {
   id: number;
-  marque: string;
-  modele: string;
-  ville: string;
+  typeProduit: string;
+  designation: string;
+  marque: string | null;
+  modele: string | null;
+  annee: number | null;
   prix: number;
-  annee: number;
-  kilometrage: number;
+  kilometrage: number | null;
   description: string | null;
   carburant: string | null;
   transmission: string | null;
+  nombrePortes: number | null;
   photos: string[];
-  vendeur: SellerInfo;
+  vendeur: MagasinVendeurInfo;
   creeLe: string;
 }
 
 export interface CarFilters {
-  city?: string;
-  brand?: string;
-  model?: string;
+  ville?: string;
+  search?: string;
 }

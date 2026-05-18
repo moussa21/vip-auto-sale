@@ -1,56 +1,63 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpEvent, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { CarDetail, CarFilters, CarSummary } from '../models/car.model';
 
-export interface CarCreateRequest {
-  marque: string; modele: string; ville: string;
-  prix: number; annee: number; kilometrage: number;
-  description?: string; carburant?: string; transmission?: string;
-  vendeurNom: string; vendeurTel: string;
-  vendeurEmail?: string; vendeurVille?: string;
+export interface ProduitCreateRequest {
+  designation: string;
+  categorie: string;
+  marque?: string;
+  modele?: string;
+  annee?: number;
+  kilometrage?: number;
+  carburant?: string;
+  transmission?: string;
+  description?: string;
+  prixVente: number;
+  publieSurMarketplace: boolean;
 }
 
 @Injectable({ providedIn: 'root' })
 export class CarService {
-  private readonly base = `${environment.apiUrl}/cars`;
+  private readonly marketBase = `${environment.apiUrl}/produits/marketplace`;
+  private readonly produitBase = `${environment.apiUrl}/produits`;
 
   constructor(private http: HttpClient) {}
 
   search(filters: CarFilters = {}): Observable<CarSummary[]> {
-    let params = new HttpParams();
-    if (filters.city)  params = params.set('city',  filters.city);
-    if (filters.brand) params = params.set('brand', filters.brand);
-    if (filters.model) params = params.set('model', filters.model);
-    return this.http.get<CarSummary[]>(this.base, { params });
+    let params = new HttpParams().set('typeProduit', 'auto');
+    if (filters.ville)  params = params.set('ville',  filters.ville);
+    if (filters.search) params = params.set('search', filters.search);
+    return this.http.get<CarSummary[]>(this.marketBase, { params });
   }
 
   getById(id: number): Observable<CarDetail> {
-    return this.http.get<CarDetail>(`${this.base}/${id}`);
+    return this.http.get<CarDetail>(`${this.marketBase}/${id}`);
   }
 
-  create(data: CarCreateRequest, photos: File[]): Observable<HttpEvent<CarDetail>> {
-    const fd = new FormData();
-    fd.append('car', new Blob([JSON.stringify(data)], { type: 'application/json' }));
-    photos.forEach(f => fd.append('photos', f));
-
-    const req = new HttpRequest('POST', this.base, fd, { reportProgress: true });
-    return this.http.request<CarDetail>(req);
-  }
-
-  addPhotos(id: number, photos: File[]): Observable<HttpEvent<CarDetail>> {
-    const fd = new FormData();
-    photos.forEach(f => fd.append('photos', f));
-    const req = new HttpRequest('POST', `${this.base}/${id}/photos`, fd, { reportProgress: true });
-    return this.http.request<CarDetail>(req);
-  }
-
-  deletePhoto(carId: number, index: number): Observable<CarDetail> {
-    return this.http.delete<CarDetail>(`${this.base}/${carId}/photos/${index}`);
-  }
-
-  deactivate(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.base}/${id}`);
+  create(data: ProduitCreateRequest, photos: File[]): Observable<{ id: number }> {
+    return new Observable(observer => {
+      this.http.post<{ id: number }>(this.produitBase, data).subscribe({
+        next: (produit) => {
+          if (photos.length === 0) {
+            observer.next(produit);
+            observer.complete();
+            return;
+          }
+          const fd = new FormData();
+          photos.forEach(f => fd.append('photos', f));
+          this.http.post(`${this.produitBase}/${produit.id}/photos`, fd).subscribe({
+            next: () => { observer.next(produit); observer.complete(); },
+            error: (e) => {
+              // Photos failed but produit was created — still navigate to it
+              observer.next(produit);
+              observer.complete();
+            }
+          });
+        },
+        error: (e) => observer.error(e)
+      });
+    });
   }
 }

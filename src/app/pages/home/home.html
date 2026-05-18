@@ -44,9 +44,8 @@
     <div *ngIf="hasActiveFilters" class="active-filters">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
       Filtres actifs :
-      <span *ngIf="activeFilters.city"  class="filter-tag">Ville: {{ activeFilters.city }}</span>
-      <span *ngIf="activeFilters.brand" class="filter-tag">Marque: {{ activeFilters.brand }}</span>
-      <span *ngIf="activeFilters.model" class="filter-tag">Modèle: {{ activeFilters.model }}</span>
+      <span *ngIf="activeFilters.ville"  class="filter-tag">Ville: {{ activeFilters.ville }}</span>
+      <span *ngIf="activeFilters.search" class="filter-tag">Recherche: {{ activeFilters.search }}</span>
     </div>
 
     <!-- Loading skeletons -->
