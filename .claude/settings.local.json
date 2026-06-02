@@ -23,7 +23,19 @@
       "PowerShell(Get-ChildItem \"C:\\\\Users\\\\mouss\\\\projects\\\\vip-auto-backend\\\\src\\\\main\\\\resources\" -Recurse | Where-Object { -not $_.PSIsContainer } | Select-Object FullName)",
       "PowerShell(Get-ChildItem \"C:\\\\Users\\\\mouss\\\\projects\\\\vip-auto-backend\\\\target\\\\classes\" -Recurse | Where-Object { $_.Name -match \"application\" } | Select-Object FullName)",
       "PowerShell(cmd /c \"dir /s /b C:\\\\Users\\\\mouss\\\\projects\\\\vip-auto-backend\\\\src\\\\main\\\\resources\" 2>&1 | Select-Object -First 30)",
-      "PowerShell(cmd /c \"dir /b C:\\\\Users\\\\mouss\\\\projects\\\\vip-auto-backend\")"
+      "PowerShell(cmd /c \"dir /b C:\\\\Users\\\\mouss\\\\projects\\\\vip-auto-backend\")",
+      "PowerShell(New-Item *)",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\mouss\\\\projects\\\\vip-auto-sale\\\\dist\\\\vip-auto-sale\" -Recurse | Select-Object FullName | Where-Object { $_.FullName -match \"ngsw|manifest|icon\" })",
+      "PowerShell(Head-Object *)",
+      "PowerShell(where.exe java 2>$null; where.exe mvn 2>$null; $env:JAVA_HOME; $env:M2_HOME)",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\mouss\\\\projects\\\\vip-auto-frontend\" -Recurse -Include \"Dockerfile\", \"docker-compose.yml\", \"docker-compose.yaml\" -ErrorAction SilentlyContinue)",
+      "Bash(Select-Object FullName)",
+      "PowerShell(ls *)",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\mouss\\\\projects\\\\vip-auto-frontend\" -Recurse -Depth 2 -ErrorAction SilentlyContinue | Select-Object FullName | Where-Object {$_.FullName -match \"\\\\.github|Dockerfile|docker|nginx|env|scripts\" -and $_.FullName -notmatch \"node_modules\"})",
+      "Bash(Select-String -Pattern \"nginx|docker|Dockerfile\")",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\mouss\\\\projects\\\\vip-auto-sale\" -File | Where-Object { $_.Name -match \"\\(nginx|docker|Dockerfile\\)\" } | Select-Object FullName)",
+      "Bash(mkdir -p \"C:\\\\Users\\\\mouss\\\\projects\\\\vip-auto-sale\\\\.github\\\\workflows\")",
+      "Bash(mkdir -p \"C:\\\\Users\\\\mouss\\\\projects\\\\vip-auto-sale\\\\nginx\")"
     ]
   }
 }

@@ -90,6 +90,24 @@
 .spin { animation: spin 1s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
+.auth-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: .35rem .5rem;
+  font-size: .85rem;
+  color: var(--text-muted);
+}
+.auth-sep  { color: var(--border-input); }
+.auth-text { color: var(--text-muted); }
+.auth-link {
+  color: var(--text-muted);
+  transition: color var(--transition);
+  &:hover, &.accent { color: var(--accent); }
+  &.accent { font-weight: 600; }
+}
+
 .back-link {
   text-align: center;
   font-size: .85rem;

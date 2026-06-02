@@ -28,6 +28,8 @@ export class CarService {
   search(filters: CarFilters = {}): Observable<CarSummary[]> {
     let params = new HttpParams().set('typeProduit', 'auto');
     if (filters.ville)  params = params.set('ville',  filters.ville);
+    if (filters.marque) params = params.set('marque', filters.marque);
+    if (filters.modele) params = params.set('modele', filters.modele);
     if (filters.search) params = params.set('search', filters.search);
     return this.http.get<CarSummary[]>(this.marketBase, { params });
   }

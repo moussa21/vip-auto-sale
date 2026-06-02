@@ -1,13 +1,12 @@
 .navbar {
   position: fixed;
   top: 0; left: 0; right: 0;
-  z-index: 100;
+  z-index: 200;
   background: transparent;
   transition: background var(--transition), box-shadow var(--transition);
 
-  /* État scrollé : fond clair warm */
   &.scrolled {
-    background: rgba(255, 251, 245, .96);
+    background: rgba(255, 251, 245, .97);
     backdrop-filter: blur(12px);
     box-shadow: 0 2px 16px rgba(249, 115, 22, .13);
 
@@ -19,7 +18,6 @@
   }
 }
 
-/* Par défaut (sur le hero sombre) : texte blanc */
 .nav-inner {
   display: flex;
   align-items: center;
@@ -31,10 +29,11 @@
   display: flex;
   align-items: center;
   gap: .5rem;
-  font-size: 1.3rem;
+  font-size: 1.25rem;
   font-weight: 800;
   letter-spacing: -.02em;
   color: #fff;
+  flex-shrink: 0;
   .brand-icon { color: var(--accent); font-size: 1rem; }
   .accent { color: var(--accent); }
 }
@@ -49,22 +48,25 @@
     font-weight: 500;
     color: rgba(255,255,255,.8);
     transition: color var(--transition);
+    padding: .35rem 0;
     &:hover, &.active { color: #fff; }
   }
 }
 
-.nav-actions {
-  .btn-sm { padding: .45rem 1rem; font-size: .8rem; }
-}
+.nav-actions { display: flex; align-items: center; gap: .5rem; }
 
 .menu-toggle {
   display: none;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 36px; height: 36px;
+  width: 44px;
+  height: 44px;
   background: transparent;
+  border-radius: 8px;
   margin-left: auto;
+  transition: background var(--transition);
+  &:hover { background: rgba(255,255,255,.1); }
 
   span {
     width: 22px; height: 2px;
@@ -94,21 +96,29 @@
   background: var(--bg-surface);
   border-top: 1px solid var(--border);
   box-shadow: 0 8px 24px rgba(249,115,22,.08);
-  padding: 1rem 1.25rem;
-  gap: .75rem;
+  padding: .75rem 1.25rem 1.25rem;
+  gap: 0;
+  /* Safe area bottom (iPhone X+) */
+  padding-bottom: max(1.25rem, env(safe-area-inset-bottom));
+
   a {
-    font-size: 1rem;
+    font-size: .95rem;
     font-weight: 500;
     color: var(--text-muted);
-    padding: .5rem 0;
+    padding: .75rem 0;
     border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    min-height: 44px;
     &:hover { color: var(--accent); }
     &:last-child { border-bottom: none; }
   }
   &.open { display: flex; }
 }
 
+/* ── Responsive ── */
 @media (max-width: 768px) {
   .nav-links, .nav-actions { display: none; }
   .menu-toggle { display: flex; }
+  .nav-inner { gap: 1rem; }
 }

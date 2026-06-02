@@ -41,5 +41,7 @@ export interface CarDetail {
 
 export interface CarFilters {
   ville?: string;
+  marque?: string;
+  modele?: string;
   search?: string;
 }

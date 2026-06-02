@@ -39,7 +39,7 @@ export class Home implements OnInit {
   }
 
   get hasActiveFilters(): boolean {
-    return !!(this.activeFilters.ville || this.activeFilters.search);
+    return !!(this.activeFilters.ville || this.activeFilters.marque || this.activeFilters.modele || this.activeFilters.search);
   }
 
   trackById(_: number, car: CarSummary) { return car.id; }

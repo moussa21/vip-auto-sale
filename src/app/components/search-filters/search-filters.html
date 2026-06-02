@@ -1,20 +1,57 @@
 <form class="filters" (ngSubmit)="doSearch()">
+
+  <!-- Ville avec autocomplétion -->
   <div class="filter-group">
     <label for="f-ville">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
       Ville
     </label>
-    <input id="f-ville" type="text" [(ngModel)]="ville" name="ville" placeholder="Ex: Conakry" />
+    <input
+      id="f-ville"
+      type="text"
+      [(ngModel)]="cityInput"
+      name="ville"
+      placeholder="Ex: Conakry"
+      autocomplete="off"
+      (input)="onCityInput()"
+      (keydown)="onCityKeydown($event)"
+      (blur)="onCityBlur()"
+    />
+    <ul *ngIf="showCitySuggestions" class="autocomplete-dropdown">
+      <li
+        *ngFor="let city of citySuggestions; let i = index"
+        [class.highlighted]="i === highlightedCity"
+        (mousedown)="selectCity(city)"
+      >{{ city }}</li>
+    </ul>
   </div>
 
   <div class="filter-divider"></div>
 
+  <!-- Marque -->
   <div class="filter-group">
-    <label for="f-search">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      Recherche
+    <label for="f-marque">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h5l2 5v4h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+      Marque
     </label>
-    <input id="f-search" type="text" [(ngModel)]="search" name="search" placeholder="Ex: Toyota Corolla" />
+    <select id="f-marque" [(ngModel)]="marque" name="marque" (change)="onBrandChange()">
+      <option value="">Toutes marques</option>
+      <option *ngFor="let b of brands" [value]="b">{{ b }}</option>
+    </select>
+  </div>
+
+  <div class="filter-divider"></div>
+
+  <!-- Modèle (dépend de la marque) -->
+  <div class="filter-group">
+    <label for="f-modele">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M3 12h3m12 0h3M12 3v3m0 12v3"/></svg>
+      Modèle
+    </label>
+    <select id="f-modele" [(ngModel)]="modele" name="modele" [disabled]="!marque || modelOptions.length === 0">
+      <option value="">{{ marque ? 'Tous modèles' : '— Choisir une marque —' }}</option>
+      <option *ngFor="let m of modelOptions" [value]="m">{{ m }}</option>
+    </select>
   </div>
 
   <div class="filter-actions">
@@ -22,6 +59,8 @@
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       Rechercher
     </button>
-    <button type="button" class="btn btn-ghost" (click)="reset()">Réinitialiser</button>
+    <button type="button" class="btn btn-ghost" (click)="reset()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
   </div>
 </form>

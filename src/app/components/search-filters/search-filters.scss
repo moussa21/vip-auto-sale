@@ -16,8 +16,9 @@
   flex-direction: column;
   gap: .2rem;
   flex: 1;
-  min-width: 140px;
+  min-width: 130px;
   padding: .4rem .75rem;
+  position: relative;
 
   label {
     display: flex;
@@ -27,11 +28,11 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: .07em;
-    color: var(--label);  /* ambre doré tropical */
+    color: var(--label);
     pointer-events: none;
   }
 
-  input {
+  input, select {
     background: transparent;
     border: none;
     outline: none;
@@ -40,7 +41,43 @@
     color: var(--text);
     width: 100%;
     cursor: pointer;
+    padding: 0;
     &::placeholder { color: var(--border-input); }
+  }
+
+  select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%23a16207' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0 center;
+    padding-right: 1.25rem;
+    option { background: #fff; color: var(--text); }
+  }
+}
+
+/* Autocomplete dropdown */
+.autocomplete-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid var(--border-input);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+  z-index: 300;
+  max-height: 200px;
+  overflow-y: auto;
+  margin-top: .35rem;
+
+  li {
+    padding: .6rem .85rem;
+    font-size: .9rem;
+    color: var(--text);
+    cursor: pointer;
+    transition: background var(--transition);
+    list-style: none;
+    &:hover, &.highlighted { background: var(--accent-light); color: var(--accent); }
   }
 }
 
@@ -58,24 +95,28 @@
   flex-shrink: 0;
 }
 
+/* ── Responsive ── */
 @media (max-width: 768px) {
   .filters {
     flex-direction: column;
     align-items: stretch;
     border-radius: var(--radius);
+    padding: .5rem;
   }
 
   .filter-group {
-    padding: .6rem .75rem;
+    padding: .65rem .75rem;
     border-bottom: 1px solid var(--border);
+    min-width: unset;
     &:last-of-type { border-bottom: none; }
   }
 
   .filter-divider { display: none; }
 
   .filter-actions {
-    padding: .5rem .75rem .25rem;
+    padding: .5rem .75rem .35rem;
     justify-content: stretch;
+    gap: .5rem;
     .btn { flex: 1; justify-content: center; }
   }
 }

@@ -42,10 +42,14 @@
 
     <!-- Active filters banner -->
     <div *ngIf="hasActiveFilters" class="active-filters">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+      </svg>
       Filtres actifs :
-      <span *ngIf="activeFilters.ville"  class="filter-tag">Ville: {{ activeFilters.ville }}</span>
-      <span *ngIf="activeFilters.search" class="filter-tag">Recherche: {{ activeFilters.search }}</span>
+      <span *ngIf="activeFilters.ville"  class="filter-tag">📍 {{ activeFilters.ville }}</span>
+      <span *ngIf="activeFilters.marque" class="filter-tag">🚗 {{ activeFilters.marque }}</span>
+      <span *ngIf="activeFilters.modele" class="filter-tag">{{ activeFilters.modele }}</span>
+      <span *ngIf="activeFilters.search" class="filter-tag">🔍 {{ activeFilters.search }}</span>
     </div>
 
     <!-- Loading skeletons -->
@@ -62,14 +66,19 @@
 
     <!-- Error state -->
     <div *ngIf="error && !loading" class="state-msg error">
-      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
       <p>Impossible de charger les annonces. Vérifiez votre connexion.</p>
       <button class="btn btn-outline" (click)="loadCars()">Réessayer</button>
     </div>
 
     <!-- Empty state -->
     <div *ngIf="!loading && !error && cars.length === 0" class="state-msg">
-      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h5l2 5v4h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h5l2 5v4h-7V8z"/>
+        <circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+      </svg>
       <p>Aucun véhicule ne correspond à votre recherche.</p>
     </div>
 
