@@ -35,7 +35,14 @@
       "Bash(Select-String -Pattern \"nginx|docker|Dockerfile\")",
       "PowerShell(Get-ChildItem \"C:\\\\Users\\\\mouss\\\\projects\\\\vip-auto-sale\" -File | Where-Object { $_.Name -match \"\\(nginx|docker|Dockerfile\\)\" } | Select-Object FullName)",
       "Bash(mkdir -p \"C:\\\\Users\\\\mouss\\\\projects\\\\vip-auto-sale\\\\.github\\\\workflows\")",
-      "Bash(mkdir -p \"C:\\\\Users\\\\mouss\\\\projects\\\\vip-auto-sale\\\\nginx\")"
+      "Bash(mkdir -p \"C:\\\\Users\\\\mouss\\\\projects\\\\vip-auto-sale\\\\nginx\")",
+      "Bash(npm show *)",
+      "Bash(node -e \"const d=require\\('fs'\\).readFileSync\\('/dev/stdin','utf8'\\); const v=JSON.parse\\(d\\); console.log\\(v.filter\\(x=>x.startsWith\\('21.'\\)\\).slice\\(-10\\).join\\('\\\\n'\\)\\)\")",
+      "Bash(Remove-Item -Force package-lock.json -ErrorAction SilentlyContinue)",
+      "Bash(Remove-Item -Recurse -Force node_modules -ErrorAction SilentlyContinue)",
+      "Bash(rm -f package-lock.json)",
+      "Bash(rm -rf node_modules)",
+      "Bash(npm run *)"
     ]
   }
 }
